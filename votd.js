@@ -2,30 +2,20 @@ const papa = require("papaparse");
 const fs = require("fs");
 const file = fs.createReadStream("almanac-2024.csv");
 
-var today = new Date(Date.now() - 86400000);
-// var today = new Date();
-var dd = today.getDate() + 1;
-var mm = today.getMonth() + 1;
-var yyyy = today.getFullYear();
-
-if (dd < 10) {
-  dd = "0" + dd;
-}
-
-if (mm < 10) {
-  mm = "0" + mm;
-}
-
-today = dd + "/" + mm + "/" + yyyy;
-
-console.log(today);
+const date = new Date();
+const year = date.getFullYear();
+const month = date.getMonth() + 1; // Months are zero-indexed
+const day = date.getDate();
+const today = `${day.toString().padStart(2, "0")}/${month.toString().padStart(2, "0")}/${year}`;
 
 papa.parse(file, {
   complete: function (results) {
-    for (let i = 0; i < results.data.length; i++) {
+    for (let i = 0; i < results.data.length - 1; i++) {
       if (results.data[i][1] == today) {
         console.log(results.data[i][3]);
       }
     }
   },
 });
+
+// https://www.biblegateway.com/passage/?search=Luke%209.46-50&version=NRSVA
