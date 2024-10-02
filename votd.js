@@ -17,9 +17,12 @@ papa.parse(file, {
         const individualReadings = readings.split(/\n\n/);
         console.log(individualReadings[1], "\n");
         console.log(individualReadings[2]);
+        const individualReadings2 = individualReadings[1].split(/\n/);
+        const blah = individualReadings2[1].replace(/\s+/g, "");
+        console.log(
+          `https://www.biblegateway.com/passage/?search=${blah}&version=NRSVA`,
+        );
       }
     }
   },
 });
-
-// https://www.biblegateway.com/passage/?search=Luke%209.46-50&version=NRSVA
