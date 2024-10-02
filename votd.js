@@ -1,7 +1,8 @@
 const papa = require("papaparse");
 const fs = require("fs");
-// const { delimiter } = require("path");
 const file = fs.createReadStream("almanac-2024.csv");
+
+const biblegateway = require("biblegateway-scrape");
 
 const date = new Date();
 const year = date.getFullYear();
@@ -22,7 +23,20 @@ papa.parse(file, {
         console.log(
           `https://www.biblegateway.com/passage/?search=${blah}&version=NRSVA`,
         );
+        getVerse(blah);
       }
     }
   },
 });
+
+function getVerse(verse) {
+  let x = async () => {
+    let result = await biblegateway.verse(
+      verse,
+      biblegateway.version.ENG_NEW_REVISED_STANDARD_VERSION_ANGLICISED,
+    );
+    console.log(result);
+  };
+
+  x();
+}
