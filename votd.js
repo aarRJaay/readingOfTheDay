@@ -1,5 +1,6 @@
 const papa = require("papaparse");
 const fs = require("fs");
+// const { delimiter } = require("path");
 const file = fs.createReadStream("almanac-2024.csv");
 
 const date = new Date();
@@ -12,7 +13,10 @@ papa.parse(file, {
   complete: function (results) {
     for (let i = 0; i < results.data.length - 1; i++) {
       if (results.data[i][1] == today) {
-        console.log(results.data[i][3]);
+        const readings = results.data[i][3];
+        const individualReadings = readings.split(/\n\n/);
+        console.log(individualReadings[1], "\n");
+        console.log(individualReadings[2]);
       }
     }
   },
