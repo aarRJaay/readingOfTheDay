@@ -16,13 +16,14 @@ papa.parse(file, {
       if (results.data[i][1] == today) {
         const readings = results.data[i][3];
         const individualReadings = readings.split(/\n\n/);
-        console.log(individualReadings[1], "\n");
-        console.log(individualReadings[2]);
-        const individualReadings2 = individualReadings[1].split(/\n/);
-        const blah = individualReadings2[1].replace(/\s+/g, "");
-        console.log(
-          `https://www.biblegateway.com/passage/?search=${blah}&version=NRSVA`,
-        );
+        // console.log(individualReadings[1], "\n");
+        console.log(individualReadings[3]); // ACTUAL READING SESSION
+        const individualReadings2 = individualReadings[3].split(/\n/);
+        var blah = individualReadings2[1].replace(/\s+/g, "");
+        getVerse(blah);
+        blah = individualReadings2[2].replace(/\s+/g, "");
+        getVerse(blah);
+        blah = individualReadings2[3].replace(/\s+/g, "");
         getVerse(blah);
       }
     }
@@ -36,6 +37,7 @@ function getVerse(verse) {
       biblegateway.version.ENG_NEW_REVISED_STANDARD_VERSION_ANGLICISED,
     );
     console.log(result);
+    // console.log(result[0].verse);
   };
 
   x();
